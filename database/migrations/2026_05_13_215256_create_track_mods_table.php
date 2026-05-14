@@ -12,13 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('track_mods', function (Blueprint $table) {
-            $table->unsignedBigInteger('id')->primary();
+            $table->id();
             $table->string('name');
             $table->decimal('distance', 6, 1)->nullable();
             $table->unsignedInteger('number_of_pits')->nullable();
             $table->string('country')->nullable();
             $table->string('city')->nullable();
-            $table->foreign('id')->references('id')->on('mods')->onDelete('cascade');
         });
     }
 

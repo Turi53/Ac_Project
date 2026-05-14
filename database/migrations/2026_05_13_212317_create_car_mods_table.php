@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('car_mods', function (Blueprint $table) {
-            $table->unsignedBigInteger('id')->primary();
+            $table->id();
             $table->string('model');
             $table->unsignedInteger('year_of_manufacture');
             $table->unsignedInteger('power');
@@ -21,7 +21,6 @@ return new class extends Migration
             $table->unsignedInteger('weight');
             $table->unsignedInteger('top_speed');
             $table->foreignId('make_id')->constrained();
-            $table->foreign('id')->references('id')->on('mods')->onDelete('cascade');
         });
     }
 

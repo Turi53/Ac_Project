@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('mods', function (Blueprint $table) {
             $table->id();
-            $table->enum('mod_type', ['car', 'track']);
             $table->text('description');
             $table->string('download_link');
             $table->boolean('is_premium')->default(false);
@@ -21,8 +20,9 @@ return new class extends Migration
             $table->enum('link_status', ['active', 'broken', 'unchecked'])->default('unchecked');
             $table->enum('status', ['published', 'unpublished', 'draft'])->default('draft');
             $table->timestamp('published_at')->nullable();
-            $table->timestamps();
             $table->foreignId('author_id')->constrained();
+            $table->morphs('modable');
+            $table->timestamps();
         });
     }
 
