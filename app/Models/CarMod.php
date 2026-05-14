@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class CarMod extends Model
 {
@@ -18,8 +19,13 @@ class CarMod extends Model
         'make_id',
     ];
 
-    public function Mod(): HasOne
+    public function mod(): MorphOne
     {
-        return $this->HasOne(Mod::class);
+        return $this->morphOne(Mod::class, 'modable');
+    }
+
+    public function make(): BelongsTo
+    {
+        return $this->belongsTo(Make::class);
     }
 }
