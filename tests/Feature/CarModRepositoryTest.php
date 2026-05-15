@@ -28,4 +28,13 @@ class CarModRepositoryTest extends TestCase
 
         $this->assertCount(9, $result);
     }
+
+    public function test_that_findById_returns_correct_model(): void
+    {
+        $carMod = CarMod::factory()->create();
+
+        $result = $this->carModRepository->findById($carMod);
+
+        $this->assertEquals($carMod->id, $result->id);
+    }
 }

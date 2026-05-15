@@ -10,5 +10,9 @@ class CarModRepository
     {
         return CarMod::paginate($resultsPerPage);
     }
-    
+
+    public function findById(int $id): CarMod
+    {
+        return CarMod::find($id);
+    }
 }
