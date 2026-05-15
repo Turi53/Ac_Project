@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\CarMod;
+use App\Models\Mod;
 
 class CarModRepository
 {
@@ -14,5 +15,10 @@ class CarModRepository
     public function findById(int $id): CarMod
     {
         return CarMod::find($id);
+    }
+
+    public function create(array $data): CarMod
+    {
+        return CarMod::create($data);
     }
 }

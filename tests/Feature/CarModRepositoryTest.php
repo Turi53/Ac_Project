@@ -3,7 +3,9 @@
 namespace Tests\Feature;
 
 use App\Models\CarMod;
+use App\Models\Make;
 use App\Repositories\CarModRepository;
+use Database\Factories\MakeFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -33,8 +35,28 @@ class CarModRepositoryTest extends TestCase
     {
         $carMod = CarMod::factory()->create();
 
-        $result = $this->carModRepository->findById($carMod);
+        $result = $this->carModRepository->findById($carMod->id);
 
         $this->assertEquals($carMod->id, $result->id);
+    }
+
+    public function test_that_car_mod_is_created(): void
+    {
+        $make = Make::factory()->create();
+
+        $data = [
+            'model' => 'camery',
+            'year_of_manufacture' => 2002,
+            'power' => 120,
+            'torque' => 110,
+            'zero_to_100' => 9.2,
+            'weight' => 1400,
+            'top_speed' => 220,
+            'make_id' => $make->id,
+        ];
+
+        $this->carModRepository->create($data);
+
+        $this->assertDatabaseCount('car_mods', 1);
     }
 }
