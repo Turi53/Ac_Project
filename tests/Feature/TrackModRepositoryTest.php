@@ -77,4 +77,13 @@ class TrackModRepositoryTest extends TestCase
 
         $this->assertSame(1, $trackMods->count());
     }
+
+    public function test_that_find_by_id_returns_correct_model(): void
+    {
+        $trackMod = TrackMod::factory()->create();
+
+        $result = $this->trackModRepository->findById($trackMod->id);
+
+        $this->assertEquals($trackMod->id, $result->id);
+    }
 }
