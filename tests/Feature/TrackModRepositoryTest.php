@@ -114,4 +114,19 @@ class TrackModRepositoryTest extends TestCase
 
         $this->assertSame('spain', $updatedCarMod->country);
     }
+
+    public function test_that_track_mod_is_deleted(): void
+    {
+        $trackMod = TrackMod::factory()->create();
+
+        $mod = Mod::factory()->create([
+            'modable_id' => $trackMod->id,
+            'modable_type' => TrackMod::class,
+        ]);
+
+        $this->trackModRepository->delete($trackMod->id);
+
+        $this->assertModelMissing($mod);
+        $this->assertModelMissing($trackMod);
+    }
 }

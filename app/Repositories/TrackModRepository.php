@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\TrackMod;
+use Illuminate\Support\Facades\DB;
 
 class TrackModRepository
 {
@@ -53,5 +54,15 @@ class TrackModRepository
         $trackMod->update($data);
 
         return $trackMod;
+    }
+
+    public function delete(int $id)
+    {
+        $trackMod = TrackMod::findOrFail($id);
+
+        DB::transaction(function() use ($trackMod) {
+            $trackMod->mod->deleteOrFail();
+            $trackMod->deleteOrFail();
+        });
     }
 }
