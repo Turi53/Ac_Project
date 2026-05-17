@@ -86,4 +86,23 @@ class CarModRepositoryTest extends TestCase
         $this->assertModelMissing($mod);
         $this->assertModelMissing($carMod);
     }
+
+    public function test_that_only_published_car_mods_are_retrieved(): void
+    {
+        Mod::factory()->count(4)->create([
+            'modable_type' => CarMod::class,
+            'status' => 'draft'
+        ]);
+
+        $carMod = CarMod::factory()->create();
+        Mod::factory()->create([
+            'status' => 'published',
+            'modable_id' => $carMod->id,
+            'modable_type' => CarMod::class,
+        ]);
+
+        $carMods = $this->carModRepository->getPublished();
+
+        $this->assertSame(1, $carMods->count());
+    }
 }

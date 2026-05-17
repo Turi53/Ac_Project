@@ -17,6 +17,7 @@ class Mod extends Model
         'is_premium',
         'author_id',
         'published_at',
+        'status',
     ];
 
     public function modable(): MorphTo

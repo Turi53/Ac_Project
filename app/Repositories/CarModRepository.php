@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\CarMod;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class CarModRepository
@@ -10,6 +11,16 @@ class CarModRepository
     public function getPaginated(int $resultsPerPage = 9)
     {
         return CarMod::paginate($resultsPerPage);
+    }
+
+    public function getPublished(int $resultsPerPage = 9)
+    {
+        return CarMod::join('mods', 'car_mods.id', '=', 'mods.modable_id')
+            ->where('modable_type', CarMod::class)
+            ->where('mods.status', 'published')
+            ->select('car_mods.*')
+            ->with(['mod.author', 'make'])
+            ->paginate($resultsPerPage);
     }
 
     public function findById(int $id): CarMod
