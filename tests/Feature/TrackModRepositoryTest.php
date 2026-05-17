@@ -86,4 +86,32 @@ class TrackModRepositoryTest extends TestCase
 
         $this->assertEquals($trackMod->id, $result->id);
     }
+
+    public function test_that_track_mod_is_created(): void
+    {
+        $data = [
+            'name' => 'Silverstone',
+            'distance' => 3.8,
+            'number_of_pits' => 12,
+            'country' => 'UK',
+            'city' => 'London',
+        ];
+
+        $this->trackModRepository->create($data);
+
+        $this->assertDatabaseCount('track_mods', 1);
+    }
+
+    public function test_that_track_mod_is_updated(): void
+    {
+        $trackMod = TrackMod::factory()->create([
+            'country' => 'brazil',
+        ]);
+
+        $updatedCarMod = $this->trackModRepository->update($trackMod->id, [
+            'country' => 'spain',
+        ]);
+
+        $this->assertSame('spain', $updatedCarMod->country);
+    }
 }

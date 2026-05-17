@@ -41,4 +41,17 @@ class TrackModRepository
         return TrackMod::find($id);
     }
 
+    public function create(array $data): TrackMod
+    {
+        return TrackMod::create($data);
+    }
+
+    public function update(int $id, array $data): TrackMod
+    {
+        $trackMod = TrackMod::findOrFail($id);
+
+        $trackMod->update($data);
+
+        return $trackMod;
+    }
 }
