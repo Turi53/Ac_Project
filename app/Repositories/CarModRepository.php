@@ -3,7 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\CarMod;
-use App\Models\Mod;
+use Illuminate\Support\Facades\DB;
 
 class CarModRepository
 {
@@ -29,5 +29,15 @@ class CarModRepository
         $carMod->update($data);
 
         return $carMod;
+    }
+
+    public function delete(int $id)
+    {
+        $carMod = CarMod::findOrFail($id);
+
+        DB::transaction(function() use ($carMod) {
+            $carMod->mod->deleteOrFail();
+            $carMod->deleteOrFail();
+        });
     }
 }

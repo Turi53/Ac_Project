@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\CarMod;
 use App\Models\Make;
+use App\Models\Mod;
 use App\Repositories\CarModRepository;
 use Database\Factories\MakeFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -69,5 +70,20 @@ class CarModRepositoryTest extends TestCase
         ]);
 
         $this->assertSame(2000, $updatedCarMod->year_of_manufacture);
+    }
+
+    public function test_that_car_mod_is_deleted(): void
+    {
+        $carMod = CarMod::factory()->create();
+
+        $mod = Mod::factory()->create([
+            'modable_id' => $carMod->id,
+            'modable_type' => CarMod::class,
+        ]);
+
+        $this->carModRepository->delete($carMod->id);
+
+        $this->assertModelMissing($mod);
+        $this->assertModelMissing($carMod);
     }
 }
