@@ -39,4 +39,42 @@ class TrackModRepositoryTest extends TestCase
 
         $this->assertSame(1, $trackMods->count());
     }
+
+    public function test_that_only_unpublished_track_mods_are_retrieved(): void
+    {
+        Mod::factory()->count(4)->create([
+            'modable_type' => TrackMod::class,
+            'status' => 'published'
+        ]);
+
+        $trackMod = TrackMod::factory()->create();
+        Mod::factory()->create([
+            'status' => 'unpublished',
+            'modable_id' => $trackMod->id,
+            'modable_type' => TrackMod::class,
+        ]);
+
+        $trackMods = $this->trackModRepository->getUnpublished();
+
+        $this->assertSame(1, $trackMods->count());
+    }
+
+    public function test_that_only_draft_track_mods_are_retrieved(): void
+    {
+        Mod::factory()->count(4)->create([
+            'modable_type' => TrackMod::class,
+            'status' => 'published'
+        ]);
+
+        $trackMod = TrackMod::factory()->create();
+        Mod::factory()->create([
+            'status' => 'draft',
+            'modable_id' => $trackMod->id,
+            'modable_type' => TrackMod::class,
+        ]);
+
+        $trackMods = $this->trackModRepository->getDrafts();
+
+        $this->assertSame(1, $trackMods->count());
+    }
 }
