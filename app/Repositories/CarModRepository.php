@@ -21,4 +21,13 @@ class CarModRepository
     {
         return CarMod::create($data);
     }
+
+    public function update(int $id, array $data): CarMod
+    {
+        $carMod = CarMod::findOrFail($id);
+
+        $carMod->update($data);
+
+        return $carMod;
+    }
 }

@@ -59,4 +59,15 @@ class CarModRepositoryTest extends TestCase
 
         $this->assertDatabaseCount('car_mods', 1);
     }
+
+    public function test_that_car_mod_is_updated(): void
+    {
+        $carMod = CarMod::factory()->create();
+
+        $updatedCarMod = $this->carModRepository->update($carMod->id, [
+            'year_of_manufacture' => 2000,
+        ]);
+
+        $this->assertSame(2000, $updatedCarMod->year_of_manufacture);
+    }
 }
