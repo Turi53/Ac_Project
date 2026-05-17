@@ -33,6 +33,16 @@ class CarModRepository
             ->paginate($resultsPerPage);
     }
 
+    public function getDrafts(int $resultsPerPage = 9)
+    {
+        return CarMod::join('mods', 'car_mods.id', '=', 'mods.modable_id')
+            ->where('modable_type', CarMod::class)
+            ->where('mods.status', 'draft')
+            ->select('car_mods.*')
+            ->with(['mod.author', 'make'])
+            ->paginate($resultsPerPage);
+    }
+
     public function findById(int $id): CarMod
     {
         return CarMod::find($id);

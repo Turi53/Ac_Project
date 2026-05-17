@@ -124,4 +124,23 @@ class CarModRepositoryTest extends TestCase
 
         $this->assertSame(1, $carMods->count());
     }
+
+    public function test_that_only_drafts_are_retrieved(): void
+    {
+        Mod::factory()->count(4)->create([
+            'modable_type' => CarMod::class,
+            'status' => 'published'
+        ]);
+
+        $carMod = CarMod::factory()->create();
+        Mod::factory()->create([
+            'status' => 'draft',
+            'modable_id' => $carMod->id,
+            'modable_type' => CarMod::class,
+        ]);
+
+        $carMods = $this->carModRepository->getDrafts();
+
+        $this->assertSame(1, $carMods->count());
+    }
 }
