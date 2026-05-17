@@ -105,4 +105,23 @@ class CarModRepositoryTest extends TestCase
 
         $this->assertSame(1, $carMods->count());
     }
+
+    public function test_that_only_unpublished_car_mods_are_retrieved(): void
+    {
+        Mod::factory()->count(4)->create([
+            'modable_type' => CarMod::class,
+            'status' => 'published'
+        ]);
+
+        $carMod = CarMod::factory()->create();
+        Mod::factory()->create([
+            'status' => 'unpublished',
+            'modable_id' => $carMod->id,
+            'modable_type' => CarMod::class,
+        ]);
+
+        $carMods = $this->carModRepository->getUnpublished();
+
+        $this->assertSame(1, $carMods->count());
+    }
 }
