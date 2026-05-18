@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\DB;
 
 class ModRepository
 {
-    public function findById(int $id): TrackMod
+    public function findById(int $id): Mod
     {
-        return TrackMod::find($id);
+        return Mod::find($id);
     }
 
     public function getPublished(int $resultsPerPage = 9)
