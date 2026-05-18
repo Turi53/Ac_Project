@@ -72,7 +72,7 @@ class ModService
     /**
      * @throws \Throwable
      */
-    public function updateTrackMod(int $id, array $modData, array $trackData): CarMod
+    public function updateTrackMod(int $id, array $modData, array $trackData): TrackMod
     {
         $trackMod = $this->trackModRepository->findById($id);
 
