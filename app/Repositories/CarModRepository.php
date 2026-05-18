@@ -43,9 +43,9 @@ class CarModRepository
             ->paginate($resultsPerPage);
     }
 
-    public function findById(int $id): CarMod
+    public function findById(int $id, array $with = []): CarMod
     {
-        return CarMod::find($id);
+        return CarMod::with($with)->findOrFail($id);
     }
 
     public function create(array $data): CarMod

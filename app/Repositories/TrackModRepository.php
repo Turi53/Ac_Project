@@ -37,9 +37,9 @@ class TrackModRepository
             ->paginate($resultsPerPage);
     }
 
-    public function findById(int $id): TrackMod
+    public function findById(int $id, array $with = []): TrackMod
     {
-        return TrackMod::find($id);
+        return TrackMod::with($with)->findOrFail($id);
     }
 
     public function create(array $data): TrackMod

@@ -34,6 +34,6 @@ class AuthorRepository
 
     public function findById(int $id): Author
     {
-        return Author::find($id);
+        return Author::findOrFail($id);
     }
 }

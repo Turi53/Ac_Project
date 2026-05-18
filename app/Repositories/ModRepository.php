@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\DB;
 
 class ModRepository
 {
-    public function findById(int $id): Mod
+    public function findById(int $id, array $with = []): Mod
     {
-        return Mod::find($id);
+        return Mod::with($with)->findOrFail($id);
     }
 
     public function getPublished(int $resultsPerPage = 9)

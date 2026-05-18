@@ -34,6 +34,6 @@ class MakeRepository
 
     public function findById(int $id): Make
     {
-        return Make::find($id);
+        return Make::findOrFail($id);
     }
 }
