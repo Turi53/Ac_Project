@@ -3,6 +3,8 @@
 namespace Tests\Feature;
 
 use App\Models\Mod;
+use App\Models\TrackMod;
+use App\Models\Author;
 use App\Repositories\ModRepository;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -18,6 +20,15 @@ class ModRepositoryTest extends TestCase
     {
         parent::setUp();
         $this->modRepository = new modRepository();
+    }
+
+    public function test_that_find_by_id_retrieves_correct_mod(): void
+    {
+        $mod = Mod::factory()->create();
+
+        $result = $this->modRepository->findById($mod->id);
+
+        $this->assertEquals($mod->id, $result->id);
     }
 
     public function test_that_only_published_mods_are_retrieved(): void
@@ -63,5 +74,50 @@ class ModRepositoryTest extends TestCase
         $mods = $this->modRepository->getDrafts();
 
         $this->assertSame(7, $mods->count());
+    }
+
+    public function test_that_mod_is_created(): void
+    {
+        $data = [
+            'description' => fake()->paragraph(6),
+            'download_link' => fake()->url(),
+            'is_premium' => 1,
+            'author_id' => Author::factory()->create()->id,
+            'published_at' => fake()->dateTime()->format('Y-m-d H:i:s'),
+            'modable_type' => TrackMod::class,
+            'modable_id' => TrackMod::factory()->create()->id,
+        ];
+
+        $this->modRepository->create($data);
+
+        $this->assertDatabaseCount('mods', 1);
+    }
+
+    public function test_that_mod_is_updated(): void
+    {
+        $mod = Mod::factory()->create([
+            'is_premium' => 0,
+        ]);
+
+        $updatedMod = $this->modRepository->update($mod->id, [
+            'is_premium' => 1,
+        ]);
+
+        $this->assertSame(1, $updatedMod->is_premium);
+    }
+
+    public function test_that_mod_is_deleted(): void
+    {
+        $trackMod = TrackMod::factory()->create();
+
+        $mod = Mod::factory()->create([
+            'modable_id' => $trackMod->id,
+            'modable_type' => TrackMod::class,
+        ]);
+
+        $this->modRepository->delete($mod->id);
+
+        $this->assertModelMissing($mod);
+        $this->assertModelMissing($trackMod);
     }
 }

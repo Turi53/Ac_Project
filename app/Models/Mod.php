@@ -18,6 +18,8 @@ class Mod extends Model
         'author_id',
         'published_at',
         'status',
+        'modable_type',
+        'modable_id'
     ];
 
     public function modable(): MorphTo
