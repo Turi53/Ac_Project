@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('car_mods', function (Blueprint $table) {
             $table->id();
             $table->string('model');
+            $table->string('slug')->unique()->nullable();
             $table->unsignedInteger('year_of_manufacture');
             $table->unsignedInteger('power');
             $table->unsignedInteger('torque');

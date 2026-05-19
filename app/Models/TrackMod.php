@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
 class TrackMod extends Mod
 {
-    use HasFactory;
+    use HasFactory, HasSlug;
 
     public $timestamps = false;
 
@@ -22,5 +24,12 @@ class TrackMod extends Mod
     public function mod(): MorphOne
     {
         return $this->morphOne(Mod::class, 'modable');
+    }
+
+    public function getSlugOptions(): SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('name')
+            ->saveSlugsTo('slug');
     }
 }

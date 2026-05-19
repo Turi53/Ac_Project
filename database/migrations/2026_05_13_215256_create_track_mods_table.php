@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('track_mods', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('slug')->unique()->nullable();
             $table->decimal('distance', 6, 1)->nullable();
             $table->unsignedInteger('number_of_pits')->nullable();
             $table->string('country')->nullable();
