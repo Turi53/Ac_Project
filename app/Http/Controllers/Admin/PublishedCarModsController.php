@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\CarMod;
-use App\Models\TrackMod;
 use App\Services\ModService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
-class TrackModController extends Controller
+class PublishedCarModsController extends Controller
 {
     private ModService $modService;
 
@@ -21,32 +21,12 @@ class TrackModController extends Controller
 
     }
 
-    public function create()
-    {
-        //
-    }
-
     public function store(Request $request)
     {
         //
     }
 
-    public function show(TrackMod $trackMod)
-    {
-        //
-    }
-
-    public function edit(TrackMod $trackMod)
-    {
-        //
-    }
-
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    public function destroy(TrackMod $trackMod)
+    public function destroy(CarMod $trackMod)
     {
         //
     }
