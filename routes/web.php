@@ -9,12 +9,20 @@ use App\Http\Controllers\Admin\PublishedCarModsController;
 use App\Http\Controllers\Admin\PublishedTrackModsController;
 use App\Http\Controllers\Admin\UnpublishedCarModsController;
 use App\Http\Controllers\Admin\UnpublishedTrackModsController;
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\TrackModController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Log In
+Route::get('register/', [AuthController::class, 'showRegister'])->name('show-register');
+Route::post('register/', [AuthController::class, 'register'])->name('register');
+Route::get('login/', [AuthController::class, 'showLogin'])->name('show-login');
+Route::post('login/', [AuthController::class, 'login'])->name('login');
+Route::post('logout/', [AuthController::class, 'logout'])->name('logout');
 
 // Admin
 Route::prefix('admin')->name('admin.')->group(function () {
