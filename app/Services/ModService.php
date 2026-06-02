@@ -42,7 +42,7 @@ class ModService
     /**
      * @throws \Throwable
      */
-    public function createTrackMod(array $modData, array $trackData): TrackMod
+    public function createTrackMod(array $trackData, array $modData): TrackMod
     {
         return DB::transaction(function() use($modData, $trackData){
             $trackMod = $this->trackModRepository->create($trackData);
@@ -59,7 +59,7 @@ class ModService
     /**
      * @throws \Throwable
      */
-    public function updateCarMod(int $id, array $modData, array $carData): CarMod
+    public function updateCarMod(int $id, array $carData, array $modData): CarMod
     {
         $carMod = $this->carModRepository->findById($id);
 

@@ -5,28 +5,36 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCarModRequest;
 use App\Models\CarMod;
+use App\Services\AuthorService;
+use App\Services\MakeService;
 use App\Services\ModService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-use mysql_xdevapi\Exception;
 use Throwable;
 
 class CarModController extends Controller
 {
     private ModService $modService;
+    private MakeService $makeService;
+    private AuthorService $authorService;
 
-    public function __construct(ModService $modService) {
+    public function __construct(ModService $modService, MakeService $makeService, AuthorService $authorService) {
         $this->modService = $modService;
+        $this->makeService = $makeService;
+        $this->authorService = $authorService;
     }
 
     public function index()
     {
-        //
+        return view('admin.car-mods.index');
     }
 
     public function create()
     {
-        //
+        return view('admin.car-mods.create', [
+            'carMod' => new CarMod,
+            'makes' => $this->makeService->getAllMakes(),
+            'authors' => $this->authorService->getAllAuthors()
+        ]);
     }
 
     public function store(StoreCarModRequest $request)

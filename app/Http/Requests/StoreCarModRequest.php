@@ -25,7 +25,7 @@ class StoreCarModRequest extends FormRequest
     {
         return [
             'model' => ['required', 'max:255'],
-            'year_of_manufacture' => ['required', 'integer', 'between:1900' .date('Y')],
+            'year_of_manufacture' => ['required', 'integer', 'between:1900,' .date('Y')],
             'power' => ['required', 'integer', 'between:1,10000'],
             'torque' => ['required', 'integer', 'between:1,10000'],
             'zero_to_100' => ['required', 'decimal:0,1'],
