@@ -18,7 +18,11 @@ class PublishedCarModsController extends Controller
 
     public function index()
     {
+        $publishedCarMods = $this->modService->getPublishedCarMods();
 
+        return view('admin.published-car-mods.index', [
+                'publishedTrackMods' => $publishedCarMods]
+        );
     }
 
     public function store(Request $request)

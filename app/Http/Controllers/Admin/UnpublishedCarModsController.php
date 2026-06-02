@@ -16,6 +16,10 @@ class UnpublishedCarModsController extends Controller
 
     public function index()
     {
-        //
+        $unpublishedCarMods = $this->modService->getUnpublishedCarMods();
+
+        return view('admin.unpublished-car-mods.index', [
+                'unpublishedCarMods' => $unpublishedCarMods]
+        );
     }
 }

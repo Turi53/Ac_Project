@@ -17,7 +17,11 @@ class PublishedTrackModsController extends Controller
 
     public function index()
     {
+        $publishedTrackMods = $this->modService->getPublishedTrackMods();
 
+        return view('admin.published-track-mods.index', [
+                'publishedTrackMods' => $publishedTrackMods]
+        );
     }
 
     public function store(Request $request)
