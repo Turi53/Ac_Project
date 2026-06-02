@@ -3,6 +3,8 @@
 namespace App\Repositories;
 
 use App\Models\Author;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class AuthorRepository
 {
@@ -27,7 +29,12 @@ class AuthorRepository
         $author->delete();
     }
 
-    public function getAll(int $resultPerPage = 9)
+    public function getAll(): Collection
+    {
+        return Author::all();
+    }
+
+    public function getPaginated(int $resultPerPage = 9): LengthAwarePaginator
     {
         return Author::paginate($resultPerPage);
     }

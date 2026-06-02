@@ -30,9 +30,14 @@ class AuthorService
         $this->authorRepository->delete($id);
     }
 
+    public function getAllAuthors(): Collection
+    {
+        return $this->authorRepository->getAll();
+    }
+
     public function getAuthors(int $resultsPerPage = 9): LengthAwarePaginator
     {
-        return $this->authorRepository->getAll($resultsPerPage);
+        return $this->authorRepository->getPaginated($resultsPerPage);
     }
 
     public function findAuthor(int $id): Author

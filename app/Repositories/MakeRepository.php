@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Make;
+use Illuminate\Database\Eloquent\Collection;
 
 class MakeRepository
 {
@@ -27,7 +28,12 @@ class MakeRepository
         $make->delete();
     }
 
-    public function getAll(int $resultPerPage = 9)
+    public function getAll(): Collection
+    {
+        return Make::all();
+    }
+
+    public function getPaginated(int $resultPerPage = 9)
     {
         return Make::paginate($resultPerPage);
     }
