@@ -25,7 +25,9 @@ class CarModController extends Controller
 
     public function index()
     {
-        return view('admin.car-mods.index');
+        $carMods = $this->modService->getAllCarMods();
+
+        return view('admin.car-mods.index', ['carMods' => $carMods]);
     }
 
     public function create()

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class CarModRepository
 {
-    public function getPaginated(int $resultsPerPage = 9)
+    public function getAll(int $resultsPerPage = 9)
     {
         return CarMod::paginate($resultsPerPage);
     }
