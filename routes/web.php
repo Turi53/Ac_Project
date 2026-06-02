@@ -19,13 +19,13 @@ Route::get('/', function () {
 // Admin
 Route::prefix('admin')->name('admin.')->group(function () {
     // Car Mods
-    Route::get('car-mods/', [CarModController::class, 'index'])->name('car-mod.index');
-    Route::get('car-mods/', [CarModController::class, 'create'])->name('car-mod.create');
-    Route::post('car-mods/', [CarModController::class, 'store'])->name('car-mod.store');
-    Route::get('car-mods/{carMod}', [CarModController::class, 'edit'])->name('car-mod.edit');
-    Route::get('car-mods/{carMod}', [CarModController::class, 'show'])->name('car-mod.show');
-    Route::put('car-mods/{carMod}', [CarModController::class, 'update'])->name('car-mod.update');
-    Route::delete('car-mods/{carMod}', [CarModController::class, 'destroy'])->name('car-mod.destroy');
+    Route::get('car-mods/', [CarModController::class, 'index'])->name('car-mods.index');
+    Route::get('car-mods/create', [CarModController::class, 'create'])->name('car-mods.create');
+    Route::post('car-mods/', [CarModController::class, 'store'])->name('car-mods.store');
+    Route::get('car-mods/{carMod}/edit', [CarModController::class, 'edit'])->name('car-mods.edit');
+    Route::get('car-mods/{carMod}', [CarModController::class, 'show'])->name('car-mods.show');
+    Route::put('car-mods/{carMod}', [CarModController::class, 'update'])->name('car-mods.update');
+    Route::delete('car-mods/{carMod}', [CarModController::class, 'destroy'])->name('car-mods.destroy');
 
     Route::get('/published-car-mods', [PublishedCarModsController::class, 'index'])->name('published-car-mods.index');
     Route::post('/published-car-mods/{carMod}', [PublishedCarModsController::class, 'store'])->name('published-car-mods.store');
@@ -36,13 +36,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/unpublished-car-mods', [UnpublishedCarModsController::class, 'index'])->name('unpublished-car-mods.index');
 
     // Track Mods
-    Route::get('track-mods/', [TrackModController::class, 'index'])->name('track-mod.index');
-    Route::get('track-mods/', [TrackModController::class, 'create'])->name('track-mod.create');
-    Route::post('track-mods/', [TrackModController::class, 'store'])->name('track-mod.store');
-    Route::get('track-mods/{trackMod}', [TrackModController::class, 'edit'])->name('track-mod.edit');
-    Route::get('track-mods/{trackMod}', [TrackModController::class, 'show'])->name('track-mod.show');
-    Route::put('track-mods/{trackMod}', [TrackModController::class, 'update'])->name('track-mod.update');
-    Route::delete('track-mod/{trackMod}', [TrackModController::class, 'destroy'])->name('track-mod.destroy');
+    Route::get('track-mods/', [TrackModController::class, 'index'])->name('track-mods.index');
+    Route::get('track-mods/', [TrackModController::class, 'create'])->name('track-mods.create');
+    Route::post('track-mods/', [TrackModController::class, 'store'])->name('track-mods.store');
+    Route::get('track-mods/{trackMod}', [TrackModController::class, 'edit'])->name('track-mods.edit');
+    Route::get('track-mods/{trackMod}', [TrackModController::class, 'show'])->name('track-mods.show');
+    Route::put('track-mods/{trackMod}', [TrackModController::class, 'update'])->name('track-mods.update');
+    Route::delete('track-mod/{trackMod}', [TrackModController::class, 'destroy'])->name('track-mods.destroy');
 
     Route::get('/published-track-mods', [PublishedTrackModsController::class, 'index'])->name('published-track-mods.index');
     Route::post('/published-track-mods/{trackMod}', [PublishedTrackModsController::class, 'store'])->name('published-track-mods.store');
