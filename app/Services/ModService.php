@@ -25,7 +25,7 @@ class ModService
     /**
      * @throws \Throwable
      */
-    public function createCarMod(array $modData, array $carData): CarMod
+    public function createCarMod(array $carData, array $modData): CarMod
     {
        return DB::transaction(function() use($modData, $carData) {
             $carMod = $this->carModRepository->create($carData);
@@ -72,7 +72,7 @@ class ModService
     /**
      * @throws \Throwable
      */
-    public function updateTrackMod(int $id, array $modData, array $trackData): TrackMod
+    public function updateTrackMod(int $id, array $trackData, array $modData): TrackMod
     {
         $trackMod = $this->trackModRepository->findById($id);
 
@@ -90,6 +90,31 @@ class ModService
     public function deleteTrackMod(int $id): void
     {
         $this->trackModRepository->delete($id);
+    }
+
+    public function publishMod(int $id)
+    {
+        $this->modRepository->update($id, [
+            'status' => 'published',
+            'published_at' => now(),
+        ]);
+    }
+
+    public function unpublishMod(int $id)
+    {
+        $this->modRepository->update($id, [
+            'status' => 'unpublished',
+        ]);
+    }
+
+    public function getAllCarMods(int $resultsPerPage = 9): LengthAwarePaginator
+    {
+        return $this->carModRepository->getAll($resultsPerPage);
+    }
+
+    public function getAllTrackMods(int $resultsPerPage = 9): LengthAwarePaginator
+    {
+        return $this->trackModRepository->getAll($resultsPerPage);
     }
 
     public function getPublishedCarMods(int $resultsPerPage = 9): LengthAwarePaginator
