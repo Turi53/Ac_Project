@@ -1,3 +1,6 @@
 <div>
-    <!-- Well begun is half done. - Aristotle -->
+    @include('admin.makes.partials._form', [
+       'route' => route('admin.makes.store', $make),
+       'method' => 'POST'
+    ])
 </div>

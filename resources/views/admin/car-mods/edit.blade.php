@@ -1,3 +1,7 @@
 <div>
-    <!-- Nothing in life is to be feared, it is only to be understood. Now is the time to understand more, so that we may fear less. - Maria Skłodowska-Curie -->
+    @include('admin.car-mods.partials._form', [
+        'route' => route('admin.car-mods.update', $carMod),
+        'method' => 'PUT'
+     ])
 </div>
+

@@ -1,3 +1,6 @@
 <div>
-    <!-- Waste no more time arguing what a good man should be, be one. - Marcus Aurelius -->
+    @include('admin.track-mods.partials._form', [
+        'route' => route('admin.track-mods.store'),
+         'method' => 'POST'
+    ])
 </div>

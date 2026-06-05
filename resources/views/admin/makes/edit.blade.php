@@ -1,3 +1,8 @@
 <div>
-    <!-- Always remember that you are absolutely unique. Just like everyone else. - Margaret Mead -->
+    <div>
+        @include('admin.makes.partials._form', [
+           'route' => route('admin.makes.update', $make),
+           'method' => 'PUT'
+        ])
+    </div>
 </div>

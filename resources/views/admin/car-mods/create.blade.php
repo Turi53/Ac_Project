@@ -1,3 +1,6 @@
 <div>
-    <!-- Life is available only in the present moment. - Thich Nhat Hanh -->
+    @include('admin.car-mods.partials._form', [
+        'route' => route('admin.car-mods.store'),
+         'method' => 'POST'
+    ])
 </div>

@@ -1,3 +1,6 @@
 <div>
-    <!-- The best way to take care of the future is to take care of the present moment. - Thich Nhat Hanh -->
+    @include('admin.track-mods.partials._form', [
+        'route' => route('admin.track-mods.update', $trackMod),
+        'method' => 'PUT'
+    ])
 </div>
