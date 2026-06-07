@@ -37,7 +37,7 @@ class AuthController extends Controller
             'password' => ['required', 'string']
         ]);
 
-        if(Auth::attempt($request->only(['name', 'password']))) {
+        if(Auth::attempt($request->only(['email', 'password']))) {
             $request->session()->regenerate();
 
             return redirect()->route('admin.car-mods.index');
