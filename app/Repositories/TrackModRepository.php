@@ -7,6 +7,11 @@ use Illuminate\Support\Facades\DB;
 
 class TrackModRepository
 {
+    public function getAll(int $resultsPerPage = 9)
+    {
+        return TrackMod::paginate($resultsPerPage);
+    }
+
     public function getPublished(int $resultsPerPage = 9)
     {
         return TrackMod::join('mods', 'track_mods.id', '=', 'mods.modable_id')
