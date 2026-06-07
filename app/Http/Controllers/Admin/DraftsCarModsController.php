@@ -16,6 +16,10 @@ class DraftsCarModsController extends Controller
 
     public function index()
     {
-        //
+        $draftCarMods = $this->modService->getDraftCarMods();
+
+        return view('admin.draft-car-mods.index', [
+            'draftCarMods' => $draftCarMods
+        ]);
     }
 }

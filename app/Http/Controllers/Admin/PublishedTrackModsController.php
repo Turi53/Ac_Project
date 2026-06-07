@@ -23,14 +23,4 @@ class PublishedTrackModsController extends Controller
                 'publishedTrackMods' => $publishedTrackMods]
         );
     }
-
-    public function store(Request $request)
-    {
-        //
-    }
-
-    public function destroy(TrackMod $trackMod)
-    {
-        //
-    }
 }

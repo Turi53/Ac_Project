@@ -16,6 +16,10 @@ class DraftsTrackModsController extends Controller
 
     public function index()
     {
-        //
+        $draftTrackMods = $this->modService->getDraftTrackMods();
+
+        return view('admin.draft-track-mods.index', [
+            'draftTrackMods' => $draftTrackMods
+        ]);
     }
 }
