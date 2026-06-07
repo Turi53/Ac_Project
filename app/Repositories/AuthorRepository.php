@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Author;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
 
 class AuthorRepository
 {
@@ -24,9 +25,17 @@ class AuthorRepository
 
     public function delete(int $id): void
     {
-        $author = Author::findOrFail($id);
+        DB::transaction(function () use($id) {
+            $author = Author::findOrFail($id);
 
-        $author->delete();
+            $author->mods()->each(function($mod) {
+                $mod->modable()->delete();
+            });
+
+            $author->mods()->delete();
+
+            $author->delete();
+        });
     }
 
     public function getAll(): Collection

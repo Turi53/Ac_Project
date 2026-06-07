@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Author;
+use App\Models\Mod;
 use App\Repositories\AuthorRepository;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -32,13 +33,20 @@ class AuthorRepositoryTest extends TestCase
         $this->assertInstanceOf(Author::class, $author );
     }
 
-    public function test_that_author_is_deleted(): void
+    public function test_that_author_and_related_mods_are_deleted(): void
     {
         $author = Author::factory()->create();
+
+        Mod::factory()->count(5)->create([
+            'author_id' => $author->id,
+        ]);
 
         $this->authorRepository->delete($author->id);
 
         $this->assertModelMissing($author);
+        $this->assertDatabaseEmpty('mods');
+        $this->assertDatabaseEmpty('car_mods');
+        $this->assertDatabaseEmpty('track_mods');
     }
 
     public function test_that_author_is_updated(): void

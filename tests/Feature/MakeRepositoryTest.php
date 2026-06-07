@@ -2,7 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Models\CarMod;
 use App\Models\Make;
+use App\Models\Mod;
 use App\Repositories\MakeRepository;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -32,13 +34,34 @@ class MakeRepositoryTest extends TestCase
         $this->assertInstanceOf(Make::class, $make );
     }
 
-    public function test_that_make_is_deleted(): void
+    public function test_that_make_and_related_car_mods_are_deleted(): void
     {
         $make = Make::factory()->create();
+
+        $carMod1 = CarMod::factory()->create([
+            'make_id' => $make->id,
+        ]);
+
+        $carMod2 = CarMod::factory()->create([
+            'make_id' => $make->id,
+        ]);
+
+        Mod::factory()->create([
+            'modable_type' => CarMod::class,
+            'modable_id' => $carMod1->id
+        ]);
+
+        Mod::factory()->create([
+            'modable_type' => CarMod::class,
+            'modable_id' => $carMod2->id
+        ]);
 
         $this->makeRepository->delete($make->id);
 
         $this->assertModelMissing($make);
+
+        $this->assertDatabaseEmpty('car_mods');
+        $this->assertDatabaseEmpty('mods');
     }
 
     public function test_that_make_is_updated(): void

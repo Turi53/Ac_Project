@@ -2,8 +2,10 @@
 
 namespace App\Repositories;
 
+use App\Models\CarMod;
 use App\Models\Make;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 
 class MakeRepository
 {
@@ -23,9 +25,22 @@ class MakeRepository
 
     public function delete(int $id): void
     {
-        $make = Make::findOrFail($id);
+        DB::transaction(function () use($id) {
+            $make = Make::findOrFail($id);
 
-        $make->delete();
+            $carModIds = $make->carMods()->pluck('id');
+
+            DB::table('mods')
+                ->where('modable_type', CarMod::class)
+                ->whereIn('modable_id', $carModIds)
+                ->delete();
+
+            DB::table('car_mods')
+                ->where('make_id', $make->id)
+                ->delete();
+
+            $make->delete();
+        });
     }
 
     public function getAll(): Collection
