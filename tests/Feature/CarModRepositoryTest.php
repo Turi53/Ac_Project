@@ -27,7 +27,7 @@ class CarModRepositoryTest extends TestCase
     {
         CarMod::factory()->count(10)->create();
 
-        $result = $this->carModRepository->getPaginated();
+        $result = $this->carModRepository->getAll();
 
         $this->assertCount(9, $result);
     }
