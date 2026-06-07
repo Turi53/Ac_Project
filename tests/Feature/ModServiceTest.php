@@ -39,7 +39,7 @@ class ModServiceTest extends TestCase
             'published_at' => null,
         ];
 
-        $carMod = $this->modService->createCarMod($modData, $carData);
+        $carMod = $this->modService->createCarMod($carData, $modData);
 
         $this->assertDatabaseCount('car_mods', 1);
         $this->assertDatabaseCount('mods', 1);
@@ -58,7 +58,7 @@ class ModServiceTest extends TestCase
             'published_at' => null,
         ];
 
-        $trackMod = $this->modService->createCarMod($modData, $trackData);
+        $trackMod = $this->modService->createCarMod($trackData, $modData);
 
         $this->assertDatabaseCount('car_mods', 1);
         $this->assertDatabaseCount('mods', 1);
@@ -71,8 +71,10 @@ class ModServiceTest extends TestCase
         $mod = Mod::factory()->create(['modable_type' => CarMod::class]);
         $originalCarMod = $mod->modable;
 
-        $updatedCarMod = $this->modService->updateCarMod($originalCarMod->id,
-            ['description' => 'blue car'], ['model' => 'mondeo']
+        $updatedCarMod = $this->modService->updateCarMod(
+            $originalCarMod->id,
+            ['model' => 'mondeo'],
+            ['description' => 'blue car']
         );
 
         $this->assertSame('blue car', $updatedCarMod->mod->description);
@@ -84,8 +86,10 @@ class ModServiceTest extends TestCase
         $mod = Mod::factory()->create(['modable_type' => TrackMod::class]);
         $originalTrackMod = $mod->modable;
 
-        $updatedTrackMod = $this->modService->updateTrackMod($originalTrackMod->id,
-            ['description' => 'slow track'], ['country' => 'portugal']
+        $updatedTrackMod = $this->modService->updateTrackMod(
+            $originalTrackMod->id,
+            ['country' => 'portugal'],
+            ['description' => 'slow track']
         );
 
         $this->assertSame('slow track', $updatedTrackMod->mod->description);
